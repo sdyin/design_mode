@@ -26,16 +26,18 @@ public class HungrySafe {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPoolExecutor poolExcutor = new ThreadPoolExecutor(5, 10, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100));
+        ThreadPoolExecutor poolExcutor = ThreadPoolUtils.getThreadPool();
         CountDownLatch cdl = new CountDownLatch(10);
         for (int i = 0; i < 10; i++) {
             poolExcutor.submit(()->{
                 HungrySafe instance = HungrySafe.getInstance();
                 System.out.println(instance);
+                cdl.countDown();
             });
         }
         cdl.await();
         System.out.println("执行完成");
+        poolExcutor.shutdown();
     }
 
 }

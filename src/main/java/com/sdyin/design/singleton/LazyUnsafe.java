@@ -26,16 +26,18 @@ public class LazyUnsafe {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPoolExecutor poolExcutor = new ThreadPoolExecutor(5, 10, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100));
+        ThreadPoolExecutor poolExcutor = ThreadPoolUtils.getThreadPool();
         CountDownLatch cdl = new CountDownLatch(10);
         for (int i = 0; i < 10; i++) {
             poolExcutor.submit(()->{
                 LazyUnsafe instance = LazyUnsafe.getInstance();
                 System.out.println(instance);
+                cdl.countDown();
             });
         }
         cdl.await();
         System.out.println("执行完成");
+        poolExcutor.shutdown();
     }
 
 
