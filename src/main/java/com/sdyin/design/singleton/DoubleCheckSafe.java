@@ -27,19 +27,4 @@ public class DoubleCheckSafe {
         return instance;
     }
 
-
-    public static void main(String[] args) throws InterruptedException {
-        ThreadPoolExecutor poolExcutor = ThreadPoolUtils.getThreadPool();
-        CountDownLatch cdl = new CountDownLatch(10);
-        for (int i = 0; i < 10; i++) {
-            poolExcutor.submit(()->{
-                DoubleCheckSafe instance = DoubleCheckSafe.getInstance();
-                System.out.println(instance);
-                cdl.countDown();
-            });
-        }
-        cdl.await();
-        System.out.println("执行完成");
-        poolExcutor.shutdown();
-    }
 }
