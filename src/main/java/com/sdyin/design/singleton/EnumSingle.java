@@ -1,8 +1,5 @@
 package com.sdyin.design.singleton;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadPoolExecutor;
-
 /**
  * 枚举实现单例
  * @Description
@@ -14,7 +11,11 @@ public enum EnumSingle {
     /**
      * 实例
      */
-    INSTANCE;
+    INSTANCE("ruimeng");
+
+    EnumSingle(String objName){
+        this.objName = objName;
+    }
 
     private String objName;
 
