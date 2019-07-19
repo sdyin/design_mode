@@ -20,7 +20,7 @@ public class DoubleCheckSafe {
         if(instance == null){
             synchronized (DoubleCheckSafe.class){
                 if(instance == null){
-                    return new DoubleCheckSafe();
+                    instance = new DoubleCheckSafe();
                 }
             }
         }

@@ -21,7 +21,7 @@ public class TestSingle {
         for (int i = 0; i < 10; i++) {
             poolExcutor.submit(()->{
                 DoubleCheckSafe instance = DoubleCheckSafe.getInstance();
-                System.out.println(instance);
+                System.out.println(instance + " --- " + Thread.currentThread().getName());
                 cdl.countDown();
             });
         }
