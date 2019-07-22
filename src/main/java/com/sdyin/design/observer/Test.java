@@ -1,6 +1,7 @@
 package com.sdyin.design.observer;
 
 /**
+ * 测试观察者
  * @Description
  * @Author liuye
  * @Date 2019/7/19 14:30
