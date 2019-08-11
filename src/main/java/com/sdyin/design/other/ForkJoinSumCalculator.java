@@ -20,7 +20,7 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long>{
     //结束位置
     private final int end;
 
-    public static final long THRESHOLD = 10000;
+    public static final long THRESHOLD = 100000;
 
     /**
      * 公共构造函数:创建主任务
@@ -48,13 +48,14 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long>{
         if(length <= THRESHOLD){
             return computeSequentially();
         }
+        System.out.println("------- curentThread:" + Thread.currentThread().getName());
         ForkJoinSumCalculator leftTask = new ForkJoinSumCalculator(numbers, start, start + length/2);
         leftTask.fork();
 
         ForkJoinSumCalculator rightTask = new ForkJoinSumCalculator(numbers, start + length / 2, end);
-        Long rightResult = rightTask.compute();
-        Long leftResult = leftTask.join();
-        return leftResult + rightResult;
+        rightTask.fork();
+        //合并
+        return leftTask.join() + rightTask.join();
     }
 
     /**
@@ -70,7 +71,7 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long>{
     }
 
     public static void main(String[] args) {
-        long n = 100000;
+        long n = 100000000L;
         long[] numbers = LongStream.rangeClosed(1, n).toArray();
         ForkJoinSumCalculator task = new ForkJoinSumCalculator(numbers);
         long start = System.currentTimeMillis();
@@ -81,7 +82,7 @@ public class ForkJoinSumCalculator extends RecursiveTask<Long>{
 
         int sum = 0;
         long start2 = System.currentTimeMillis();
-        for (int i = 0;i <= 100000;++i) {
+        for (int i = 0;i <= n;++i) {
             sum += i;
         }
         long end2 = System.currentTimeMillis();
