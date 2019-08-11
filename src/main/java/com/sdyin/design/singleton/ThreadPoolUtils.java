@@ -15,7 +15,7 @@ public class ThreadPoolUtils {
     public static Integer i = 0;
 
     public static ThreadPoolExecutor getThreadPool(){
-        ThreadPoolExecutor poolExcutor = new ThreadPoolExecutor(5, 10, 60,
+        ThreadPoolExecutor poolExcutor = new ThreadPoolExecutor(6, 10, 60,
                 TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(100),
                 r -> {
                     Thread thread = new Thread(r);
