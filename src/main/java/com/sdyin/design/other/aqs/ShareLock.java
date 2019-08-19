@@ -1,8 +1,5 @@
 package com.sdyin.design.other.aqs;
 
-import com.sun.corba.se.impl.orbutil.concurrent.Sync;
-import org.springframework.context.annotation.Conditional;
-
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.Condition;
