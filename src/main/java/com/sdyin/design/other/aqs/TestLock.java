@@ -2,6 +2,7 @@ package com.sdyin.design.other.aqs;
 
 import com.sdyin.design.singleton.ThreadPoolUtils;
 
+import java.time.Instant;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -18,12 +19,12 @@ public class TestLock {
         ThreadPoolExecutor threadPool = ThreadPoolUtils.getThreadPool();
         AloneLock aloneLock = new AloneLock();
 
-        long startTime = System.currentTimeMillis();
+        long startTime = Instant.now().toEpochMilli();
         System.out.println();
         for (int i = 0;i< 500;i++){
             threadPool.submit(()-> ++count);
         }
-        long endTime = System.currentTimeMillis();
+        long endTime = Instant.now().toEpochMilli();
         System.out.println("count:" + count + " -- spend time:" + (endTime - startTime));
 
         count = 0;
