@@ -22,7 +22,7 @@ public class ThreadPoolUtils {
                     thread.setDaemon(true);
                     thread.setName("sdyin_thread_pool_" + (++i));
                     return thread;
-                });
+                }, new ThreadPoolExecutor.AbortPolicy());
         return poolExcutor;
     }
 }
